@@ -22,7 +22,7 @@ export class LearningFactsPageComponent implements OnInit {
   async getPackageById(id: string | undefined): Promise<LearningPackage> {
     return JSON.parse(
       await(
-          await fetch('/api/learningpackages/'+id, {
+          await fetch('/learningpackages/'+id, {
             headers:{
               'Cache-Control':'no-store'
             }
@@ -42,7 +42,7 @@ export class LearningFactsPageComponent implements OnInit {
       return elem.id === factId
     })
     this.package?.questions.splice(this.package?.questions.indexOf(fact), 1)
-    await fetch('/api/learningfact/'+factId, {
+    await fetch('/learningfact/'+factId, {
       method:'DELETE'
     })
   }

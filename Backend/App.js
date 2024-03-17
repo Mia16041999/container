@@ -20,8 +20,8 @@ app.get('/', function (req, res) {
 });
 
 // Mount route handlers
-app.use('/learning-service', learningServiceRouter);
-app.use('/user-service', userServiceRouter);
+app.use('/', learningServiceRouter);
+app.use('/', userServiceRouter);
 
 // Start the server
 app.listen(PORT, () => {

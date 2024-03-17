@@ -26,7 +26,7 @@ export class LearningSessionPageComponent {
     async getPackageById(id: string): Promise<LearningPackage | undefined> {
         return JSON.parse(
             await (
-                await fetch('/api/learningpackages/' + id)
+                await fetch('/learningpackages/' + id)
             ).text()
         )
     }
@@ -78,7 +78,7 @@ export class LearningSessionPageComponent {
                     fact.nextDate = nextDate
                     break;
             }
-            await fetch('/api/learningfact',{
+            await fetch('/learningfact',{
                 method:'PATCH',
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify(fact)

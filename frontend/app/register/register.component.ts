@@ -28,7 +28,7 @@ export class RegisterComponent {
         const password = this.signupForm.value.password;
     
         try {
-            const res = await fetch('http://localhost:4000/api/sign-up', {
+            const res = await fetch('http://localhost:4000/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

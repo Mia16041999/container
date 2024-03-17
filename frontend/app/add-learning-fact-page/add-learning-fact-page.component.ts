@@ -103,7 +103,7 @@ app.post('/upload', (req, res) => {
   }) {
     const pkg = await this.getPackageById(packageId);
     if (pkg) {
-      await fetch(`/api/learningpackages/${packageId}`, {
+      await fetch(`/learningpackages/${packageId}`, {
         method: 'POST', // or 'PATCH' depending on your API design
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newFact)
@@ -114,7 +114,7 @@ app.post('/upload', (req, res) => {
   async getPackageById(id: string): Promise<LearningPackage | undefined> {
     return JSON.parse(
       await(
-          await fetch('/api/learningpackages/'+id)
+          await fetch('/learningpackages/'+id)
       ).text()
     )
   }

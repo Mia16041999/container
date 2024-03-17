@@ -32,7 +32,7 @@ export class PackageCreationPageComponent {
     startDate: null
   }): Promise<void> {
     try {
-      let response = await fetch('/api/learningpackages', {
+      let response = await fetch('/learningpackages', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newPackage)

@@ -491,7 +491,7 @@ router.get('/styles.css', function (req, res) {
     res.sendFile('styles.css', {root: './frontend/dist'})
 })
 
-router.get('/api/learningpackages/active', async function (req, res) {
+router.get('/learningpackages/active', async function (req, res) {
     try {
         const packages = await getActiveLearningPackages();
         res.json(packages); // Make sure you send back JSON
@@ -502,55 +502,55 @@ router.get('/api/learningpackages/active', async function (req, res) {
 });
 
 
-router.get('/api/learningpackages/:id',
+router.get('/learningpackages/:id',
     async function (req, res) {
         res.json(await ulpWithQuestions(req.params['id']))
     })
-router.post('/api/learningpackages',
+router.post('/learningpackages',
     async function (req, res) {
         const changes = req.body
         await addNewLearningPackage(changes)
         res.sendStatus(201)
     }
 )
-router.get('/api/non-study-packages', async function (req, res) {
+router.get('/non-study-packages', async function (req, res) {
     res.json(await getInactiveLearningPackages())
 })
 
 
-router.patch('/api/learningfact/:id', async function(req, res){
+router.patch('/learningfact/:id', async function(req, res){
 	await editPackageByID(req.params['id'], req.body)
 	res.sendStatus(200)
 })
 
-router.get('/api/learningfact/:id', async function (req, res) {
+router.get('/learningfact/:id', async function (req, res) {
     const lf = await getLearningFact(req.params['id'])
     res.json(lf)
 })
-router.post('/api/learningpackages/:id', async function (req, res) {
+router.post('/learningpackages/:id', async function (req, res) {
     const {LF_ID} = await addNewLearningFact(req.body)
     await addLearningFactToLearningPackage(LF_ID, req.params['id'])
     res.sendStatus(201)
 })
-router.delete('/api/learningfact/:id', async function (req, res) {
+router.delete('/learningfact/:id', async function (req, res) {
     await deleteFact(req.params['id'])
 })
-router.delete('/api/learningpackages/:id', async function (req, res) {
+router.delete('/learningpackages/:id', async function (req, res) {
     await deletePackage(req.params['id'])
 })
-router.patch('/api/learningpackages/:id/add-to-study', async function (req, res) {
+router.patch('/learningpackages/:id/add-to-study', async function (req, res) {
     await addLearningPackageToStudy(req.params['id'])
 })
-router.patch('/api/learningpackages/:id/remove-package', async function (req, res) {
+router.patch('/learningpackages/:id/remove-package', async function (req, res) {
     await removeLearningPackageFromStudy(req.params['id'])
 })
-router.patch('/api/learningpackages/:id/achieve', async function (req, res) {
+router.patch('/learningpackages/:id/achieve', async function (req, res) {
     await addLearningPackageToAchievements(req.params['id'])
 })
-router.get('/api/achieved', async function (req, res) {
+router.get('/achieved', async function (req, res) {
     res.json(await getAchievedLearningPackages())
 })
-router.patch('/api/learningfact', async function (req, res) {
+router.patch('/learningfact', async function (req, res) {
     await updateFact(req.body)
 })
  

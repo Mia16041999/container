@@ -50,14 +50,14 @@ export class HomePageComponent implements OnInit {
     }
 
     async getActiveLearningPackages(): Promise<LearningPackage[]> {
-        return JSON.parse(await(await fetch('/api/learningpackages/active')).text())
+        return JSON.parse(await(await fetch('/learningpackages/active')).text())
     }
 
     async deletePackage(id: string, event: Event): Promise<void> {
         event.stopPropagation();
         this.learningPackages = this.learningPackages.filter(p => p.id !== id);
         // send delete of package
-        await fetch(`/api/learningpackages/${id}/remove-package`, {
+        await fetch(`/learningpackages/${id}/remove-package`, {
             method: 'PATCH'
         })
     }
@@ -65,7 +65,7 @@ export class HomePageComponent implements OnInit {
     async achievePackage(id: string, event: Event): Promise<void> {
         event.stopPropagation();
         this.learningPackages = this.learningPackages.filter(p => p.id !== id);
-        await fetch(`/api/learningpackages/${id}/achieve`, {
+        await fetch(`/learningpackages/${id}/achieve`, {
             method: 'PATCH'
         })
         // this.loadLearningPackages(); // Refresh

@@ -71,8 +71,7 @@ async function addNewUser(username, password) {
     }
 }
 router.use(express.json()); // Built-in middleware for json
-// Express routes
-router.use(express.json());
+ 
 
 router.get('/login', function (req, res) {
     res.sendFile('index.html', { root: './frontend/dist' });
@@ -86,7 +85,7 @@ function generateSessionID() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
-router.post('/api/login', async function (req, res) {
+router.post('/login', async function (req, res) {
     const { username, password } = req.body;
     console.log('Login attempt for username:', username);
     const correctPassword = await checkPassword(username, password);
@@ -99,7 +98,7 @@ router.post('/api/login', async function (req, res) {
     }
 });
 
-router.post('/api/signup', async function (req, res) {
+router.post('/signup', async function (req, res) {
     const { username, password } = req.body;
     const userCreationResult = await addNewUser(username, password);
     if (!userCreationResult) {

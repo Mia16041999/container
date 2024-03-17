@@ -18,7 +18,7 @@ export class AchievementsPageComponent implements OnInit {
   async getAchievedLearningPackages(){
     return JSON.parse(
       await (
-          await fetch('/api/achieved')
+          await fetch('/achieved')
       ).text()
     )
   }

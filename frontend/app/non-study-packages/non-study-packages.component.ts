@@ -18,7 +18,7 @@ export class NonStudyPackagesComponent {
   }
 
   async getNonActiveLearningPackages(): Promise<LearningPackage[]> {
-    const response =  await fetch('/api/non-study-packages')
+    const response =  await fetch('/non-study-packages')
     const text = await response.text()
     return JSON.parse(text)
   }
@@ -29,7 +29,7 @@ export class NonStudyPackagesComponent {
   }
   async deletePackage(id: string, event:Event): Promise<void> {
     event.stopPropagation()
-    fetch(`/api/learningpackages/${id}`, { method: 'DELETE' })
+    fetch(`/learningpackages/${id}`, { method: 'DELETE' })
         .then(response => response.json())
         .then(() => {
             console.log(`Package ${id} deleted`);
@@ -42,7 +42,7 @@ export class NonStudyPackagesComponent {
   async addPackageToStudy(id: string, event: Event): Promise<void> {
     event.stopPropagation();
     this.nonStudiedPackages = this.nonStudiedPackages.filter(p => p.id !== id);
-    await fetch(`/api/learningpackages/${id}/add-to-study`, {
+    await fetch(`/learningpackages/${id}/add-to-study`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
     })

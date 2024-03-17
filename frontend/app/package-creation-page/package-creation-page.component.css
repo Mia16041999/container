@@ -1,0 +1,65 @@
+.package-creation-container {
+    max-width: 600px; /* Sets maximum width for the form */
+    margin: auto; /* Centers the form */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .package-creation-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px; /* Space between title and form */
+  }
+  
+  .form-group {
+    margin-bottom: 15px; /* Space between form fields */
+  }
+  
+  .form-group label {
+    display: block; /* Makes label a block element */
+    margin-bottom: 5px; /* Space between label and input field */
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group textarea {
+    width: 100%; /* Makes input and textarea take full width */
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Includes padding and border in element's total width and height */
+  }
+  
+  
+  .form-group textarea {
+    height: 100px; /* Sets a fixed height for the textarea */
+    resize: vertical; /* Allows only vertical resizing */
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Makes the button a block element */
+    width: 100%; /* Button takes full width of the container */
+    margin-top: 20px; /* Space above the button */
+    font-size: 1rem;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+  .error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+  }
+  

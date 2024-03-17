@@ -1,0 +1,29 @@
+<div *ngIf="package">
+  <h2 class="text-center">{{ package.title }}</h2>
+
+  <div *ngIf="package.questions && package.questions.length > 0">
+
+    <div class="question-container">
+      <p class="question">{{ package.questions[currentFactIndex].question }}</p>
+      
+      <div [class.show-answer]="showAnswer" class="answer-container">
+        <p class="answer">{{ package.questions[currentFactIndex].answer }}</p>
+      </div>
+
+      <button class="btn btn-primary flip-button" *ngIf="!showAnswer" (click)="toggleAnswer()">Flip</button>
+    </div>
+
+    <div *ngIf="showAnswer" class="difficulty-buttons">
+      <button class="btn difficulty-easy" (click)="setDifficultyAndGoToNextFact(1)">Easy</button>
+      <button class="btn difficulty-medium" (click)="setDifficultyAndGoToNextFact(2)">Medium</button>
+      <button class="btn difficulty-hard" (click)="setDifficultyAndGoToNextFact(3)">Hard</button>
+      <button class="btn difficulty-very-hard" (click)="setDifficultyAndGoToNextFact(4)">Very Hard</button>
+    </div>
+
+    <div *ngIf="showFinish" class="success-container">
+      <p class="success-message">Congratulations! You have completed the package.</p>
+      <a class="btn btn-primary" href="home-page">Go Back to Home</a>
+    </div>
+
+  </div>
+</div>

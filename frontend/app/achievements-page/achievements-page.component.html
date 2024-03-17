@@ -1,0 +1,20 @@
+<div class="packages-container">
+    <h2 class="tab-title" style="margin-top: 10px;">Your Achievements:</h2>
+    <hr class="separator">
+  
+    <div *ngIf="achievedPackages.length > 0">
+      <div *ngFor="let package of achievedPackages" class="package">
+        <div class="package-content">
+          <h3 class="package-title">{{ package.title }}</h3>
+          <p class="package-category">Category: {{ package.category }}</p>
+          <p class="package-difficulty">Difficulty Level: {{ package.difficultyLevel }}</p>
+          <p class="package-description">{{ package.description }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="achievedPackages.length === 0" class="no-achievements">
+      <p>No achievements yet. Keep learning!</p>
+    </div>
+  </div>
+  

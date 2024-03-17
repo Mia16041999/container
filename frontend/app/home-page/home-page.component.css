@@ -1,0 +1,101 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+.tab-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  color: #333;
+  padding: 10px;
+  display: inline-block;
+  margin-left: 1%;
+}
+.packages-container {
+  margin-left: 5%;
+  width: auto;
+  max-width: 70%;
+}
+.package {
+  position:relative;
+  display: block;
+  flex-direction: column; /* Stack the children vertically */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 40px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  cursor: pointer; /* Indicates the package is clickable */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+.package:hover {
+  background-color: #f0f0f0; /* Slight background color change on hover */
+}
+.package-title {
+  font-size: 1.5em;
+  margin-bottom: 10px; /* Space between title and content */
+  color: #333;
+  text-align: left;
+}
+
+.hidden {
+  display: none;
+}
+@media (max-width: 768px) {
+  .packages-container {
+    margin-left: 10px;
+    width: 90%;
+  }
+  .package {
+    padding: 10px 15px;
+    margin-bottom: 20px;
+  }
+}
+.separator {
+  border: 0;
+  height: 2px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); /* Gradient effect */
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.quote-of-the-week-container {
+  margin-top: 20px; /* Space below the navbar */
+  text-align: center; /* Center the text */
+}
+.quote-title {
+  font-size: 2rem; /* Large font size for the title */
+  font-weight: bold; /* Make the title bold */
+}
+.quote {
+  font-size: 1.5rem; /* Large font size for the quote */
+  margin-top: 10px; /* Space between title and quote */
+}
+
+.package-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.package-actions {
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+
+.action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.action-button i {
+  font-size: 1.25em;
+}

@@ -1,0 +1,28 @@
+.navbar {
+  padding-top: 1.5rem; /* Increased padding to make the navbar taller */
+  padding-bottom: 1.5rem; /* Increased padding to make the navbar taller */
+}
+.navbar-brand,
+.navbar-nav .nav-link {
+  font-size: 1.5rem; /* Increased font size for larger text */
+  padding: 0.5rem 1rem; /* Increase padding to make each nav item larger */
+}
+.dropdown-menu {
+  font-size: 1.25rem; /* Increased font size for dropdown items */
+  padding: 0.5rem; /* Increased padding within the dropdown */
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding-top: 1rem; /* Slightly less padding on smaller screens */
+    padding-bottom: 1rem; /* Slightly less padding on smaller screens */
+  }
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    font-size: 1.25rem; /* Smaller font size on mobile */
+    padding: 0.25rem 0.5rem; /* Smaller padding on mobile */
+  }
+  .dropdown-menu {
+    font-size: 1rem; /* Smaller font size for dropdown items on mobile */
+  }
+}

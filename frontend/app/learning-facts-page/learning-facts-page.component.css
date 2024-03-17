@@ -1,0 +1,122 @@
+.learning-facts-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 50%;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.learning-facts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.learning-facts-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.learning-facts-details {
+    margin-bottom: 20px;
+}
+
+.fact-detail {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.learning-facts-list h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.learning-facts-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.learning-facts-list li {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fact-question {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.fact-answer {
+    font-style: italic;
+}
+
+.no-package-message {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.learning-facts-container .fact-review-count,
+.learning-facts-container .fact-confidence-level,
+.learning-facts-container .fact-last-reviewed-date,
+.learning-facts-container .fact-next-date {
+    color: #6c757d;
+    font-size: 0.9em;
+    font-style: italic;
+    margin-bottom: 0.2em;
+}
+
+.modify-button {
+    background: none;
+    border: 1px solid #007bff;
+    color: #007bff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+button {
+    margin-top: 10px
+}
+
+.delete-button {
+    background: none;
+    border: 1px solid #dc2a2a;
+    color: #dc2a2a;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.modify-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #dc2a2a;
+    color: white;
+}
+
+.add-button {
+    background-color: #28a745; /* Green background */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.add-button:hover {
+    background-color: #218838;
+}

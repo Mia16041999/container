@@ -1,0 +1,24 @@
+<div style="display: flex; justify-content: space-around">
+    <div>
+        <h1 style="display:inline-block;">Register</h1>
+        <span class="m-3">or</span>
+        <button type="button" class="btn btn-outline-primary" (click)="login()">Log in</button>
+    </div>
+</div>
+<div style="display: flex; justify-content: space-around">
+    <form [formGroup]="signupForm" (ngSubmit)="signup($event)">
+        <div class="form-group m-3">
+            <label for="username">Username</label>
+            <input type="email" class="form-control" id="username" aria-describedby="emailHelp"
+                   placeholder="Enter email" formControlName="username">
+            <p *ngIf="isNotAvailable" class="text-danger">The username is already in use</p>
+        </div>
+        <div class="form-group m-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+        </div>
+        <div style="display: flex; justify-content: space-evenly; margin-top:10px">
+            <button type="submit" class="btn btn-primary">Sign up</button>
+        </div>
+    </form>
+</div>

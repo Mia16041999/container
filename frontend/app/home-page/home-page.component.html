@@ -1,0 +1,33 @@
+<div class="quote-of-the-week-container">
+  <h2 class="quote-title">Quote of the Week</h2>
+  <p class="quote">{{ currentQuote }}</p>
+</div>
+
+<hr class="separator">
+
+<h3 class="tab-title">Your study program :</h3>
+
+<div class="packages-container">
+  <div *ngFor="let package of learningPackages" class="package"  (click)="openLearningSession(package.id)">
+    <div class="package-header" >
+      <div (click)="openLearningSession(package.id)" class="package-content" >
+        <h3 class="package-title">{{ package.title }}</h3>
+        <p class="package-category">Category: {{ package.category }}</p>
+        <p class="package-difficulty">Difficulty Level: {{ package.difficultyLevel }}</p>
+        <p class="package-description">{{ package.description }}</p>
+      </div>
+      <div class="package-actions">
+        <button (click)="modifyPackage(package.id, $event)" class="action-button">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button (click)="deletePackage(package.id, $event)" class="action-button">
+          <i class="fas fa-trash"></i>
+        </button>
+        <button (click)="achievePackage(package.id, $event)" class="action-button">
+          <i class="fas fa-trophy"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,31 @@
+<div class="packages-container">
+    <h2 class="tab-title" style="margin-top: 10px">Available packages:</h2>
+    <hr class="separator">
+  
+    <div *ngIf="nonStudiedPackages.length > 0">
+      <div *ngFor="let package of nonStudiedPackages" class="package">
+        <div class="package-content">
+          <h3 class="package-title">{{ package.title }}</h3>
+          <p class="package-category">Category: {{ package.category }}</p>
+          <p class="package-difficulty">Difficulty Level: {{ package.difficultyLevel }}</p>
+          <p class="package-description">{{ package.description }}</p>
+        </div>
+        <div class="package-actions">
+          <button (click)="modifyPackage(package.id, $event)" class="btn btn-warning action-button">
+            <i class="fas fa-edit"></i> Modify
+          </button>
+          <button (click)="deletePackage(package.id, $event)" class="btn btn-danger action-button">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+          <button (click)="addPackageToStudy(package.id, $event)" class="btn btn-success action-button">
+            <i class="fas fa-plus"></i> Add
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="nonStudiedPackages.length === 0" class="no-achievements">
+      <p>No packages available. Check back later!</p>
+    </div>
+  </div>
+  

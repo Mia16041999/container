@@ -1,0 +1,29 @@
+<div class="learning-facts-container" *ngIf="package">
+  <div class="learning-facts-header">
+      <h2 class="learning-facts-title">{{ package.title }} - Learning Facts</h2>
+      <button class="add-button" (click)="addFact(package.id)">Add Fact</button>
+  </div>
+
+  <div *ngIf="package.questions.length > 0" class="learning-facts-list">
+      <ul>
+          <li *ngFor="let fact of package.questions">
+              <div>
+                  <p class="fact-question">{{ fact.question }}</p>
+                  <p class="fact-answer">{{ fact.answer }}</p>
+                  <p class="fact-review-count">Review Count: {{ fact.reviewCount }}</p>
+                  <p class="fact-confidence-level">Confidence Level: {{ fact.confidenceLevel }}</p>
+                  <p class="fact-last-reviewed-date">Last Reviewed: {{ fact.lastReviewedDate | date }}</p>
+                  <p class="fact-next-date">Next Review Date: {{ fact.nextDate | date }}</p>
+              </div>
+              <div style="display: flex; flex-direction: column;">
+                <button class="modify-button" (click)="modifyFact(package, fact, $event)">Modify</button>
+                <button class="delete-button" (click)="deleteFact(fact.id)">Delete</button>
+              </div>
+          </li>
+      </ul>
+  </div>
+
+  <div *ngIf="package.questions.length === 0" class="no-package-message">
+      <p>No learning facts available.</p>
+  </div>
+</div>

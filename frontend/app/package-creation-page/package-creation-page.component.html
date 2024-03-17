@@ -1,0 +1,38 @@
+<div class="package-creation-container">
+  <h2>Create a new learning package</h2>
+  <form [formGroup]="packageForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" formControlName="title" class="form-control">
+      <div *ngIf="packageForm.get('title')?.invalid && packageForm.get('title')?.touched" class="error-message">
+        Title is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="desc">Description</label>
+      <textarea id="desc" formControlName="desc" class="form-control"></textarea>
+      <div *ngIf="packageForm.get('desc')?.invalid && packageForm.get('desc')?.touched" class="error-message">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input type="text" id="category" formControlName="category" class="form-control">
+      <div *ngIf="packageForm.get('category')?.invalid && packageForm.get('category')?.touched" class="error-message">
+        Category is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="difficultyLevel">Difficulty Level</label>
+      <input type="number" id="difficultyLevel" formControlName="difficultyLevel" class="form-control">
+      <div *ngIf="packageForm.get('difficultyLevel')?.invalid && packageForm.get('difficultyLevel')?.touched" class="error-message">
+        Difficulty Level is required and must be between 1 and 20.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!packageForm.valid">Create Package</button>
+  </form>
+</div>

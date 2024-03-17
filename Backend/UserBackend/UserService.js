@@ -1,9 +1,10 @@
-const express = require('express');
 const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
-const router = express.Router();
+const express = require('express');
+const app = express();
 
-
+const cors = require('cors');
+const PORT = process.env.PORT || 4001;
 // Sequelize setup and model definitions
 const sequelizeUser = new Sequelize(
     'user_db',        // Name of the user database
@@ -70,14 +71,16 @@ async function addNewUser(username, password) {
         return newUser.user_id;
     }
 }
-router.use(express.json()); // Built-in middleware for json
- 
+app.use(express.json());; // Built-in middleware for json
+app.use(cors({
+    origin: 'http://localhost:4200'
+  })); 
 
-router.get('/login', function (req, res) {
+app.get('/login', function (req, res) {
     res.sendFile('index.html', { root: './frontend/dist' });
 });
 
-router.get('/register', function (req, res) {
+app.get('/register', function (req, res) {
     res.sendFile('index.html', { root: './frontend/dist' });
 });
 
@@ -85,7 +88,7 @@ function generateSessionID() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
-router.post('/login', async function (req, res) {
+app.post('/login', async function (req, res) {
     const { username, password } = req.body;
     console.log('Login attempt for username:', username);
     const correctPassword = await checkPassword(username, password);
@@ -98,7 +101,7 @@ router.post('/login', async function (req, res) {
     }
 });
 
-router.post('/signup', async function (req, res) {
+app.post('/signup', async function (req, res) {
     const { username, password } = req.body;
     const userCreationResult = await addNewUser(username, password);
     if (!userCreationResult) {
@@ -108,4 +111,8 @@ router.post('/signup', async function (req, res) {
     }
 });
 
-module.exports = router;
+ // Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+  

@@ -9,6 +9,7 @@ import {LearningPackage} from '../learning-package.service';
 })
 
 export class HomePageComponent implements OnInit {
+    private backendUrl = 'http://localhost:4000';
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -50,25 +51,23 @@ export class HomePageComponent implements OnInit {
     }
 
     async getActiveLearningPackages(): Promise<LearningPackage[]> {
-        return JSON.parse(await(await fetch('/learningpackages/active')).text())
+        const response = await fetch(`${this.backendUrl}/learningpackages/active`);
+        return await response.json();
     }
 
     async deletePackage(id: string, event: Event): Promise<void> {
         event.stopPropagation();
         this.learningPackages = this.learningPackages.filter(p => p.id !== id);
-        // send delete of package
-        await fetch(`/learningpackages/${id}/remove-package`, {
+        await fetch(`${this.backendUrl}/learningpackages/${id}/remove-package`, {
             method: 'PATCH'
-        })
+        });
     }
 
     async achievePackage(id: string, event: Event): Promise<void> {
         event.stopPropagation();
         this.learningPackages = this.learningPackages.filter(p => p.id !== id);
-        await fetch(`/learningpackages/${id}/achieve`, {
+        await fetch(`${this.backendUrl}/learningpackages/${id}/achieve`, {
             method: 'PATCH'
-        })
-        // this.loadLearningPackages(); // Refresh
-        // this.router.navigate(['/achievements-page']);
+        });
     }
 }

@@ -12,6 +12,7 @@ export class ModifyLearningFactPageComponent implements OnInit {
     factForm: FormGroup;
     packageId: string;
     factId: string;
+    private backendUrl = 'http://localhost:4000'; // This should be your learning service URL
 
     constructor(
         private fb: FormBuilder,
@@ -36,26 +37,23 @@ export class ModifyLearningFactPageComponent implements OnInit {
 
     async modifyFact(factId : string): Promise<void> {
         const updatedFact = this.factForm.value
-        const res = await fetch(`/learningfact/${factId}`, {
-            method: 'PATCH', // or 'PATCH' depending on your API design
+        const res = await fetch(`${this.backendUrl}/learningfact/${factId}`, {
+            method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedFact)
         })
-        if(res.status === 200){
+        if (res.status === 200) {
             return
-        }
-        else{
-            throw Error('fact not modified and error thrown')
+        } else {
+            throw new Error('Fact not modified and error thrown');
         }
     }
 
-    onSubmit():void {
+    onSubmit(): void {
         if (this.factForm.valid) {
-            this.modifyFact(this.factId).then((res)=>{
-                window.location.href = '/learning-facts-page/'+this.packageId
+            this.modifyFact(this.factId).then(() => {
+                window.location.href = '/learning-facts-page/' + this.packageId
             });
-            //await this.modifyFact(this.packageId, this.currentFact);
-
             this.router.navigate(['/learning-facts-page', this.packageId]);
         }
     }
@@ -63,5 +61,4 @@ export class ModifyLearningFactPageComponent implements OnInit {
     goBack() {
       this.router.navigate(['/learning-facts-page', this.packageId]);
     }
-
 }

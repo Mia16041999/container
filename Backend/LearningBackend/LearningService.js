@@ -1,8 +1,8 @@
-const express = require('express');
 const { Sequelize, DataTypes } = require('sequelize');
-const router = express.Router();
-
-
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const PORT = process.env.PORT || 4000;
 // ... Include Sequelize setup and model definitions here
 const sequelize = new Sequelize(
     'anki_clone', // Name of the database
@@ -426,72 +426,83 @@ async function getAchievedLearningPackages(){
     return res
 }
 
-router.use(express.json()); // Built-in middleware for json
+app.use(express.json()); // Built-in middleware for json
 // Define all learning service routes
+app.use(cors({
+    origin: 'http://localhost:4200'
+  }));
+  // D
 
-router.get('/', function (req, res) {
+app.get('/', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/home-page', function (req, res) {
+app.get('/home-page', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/non-study-packages', function (req, res) {
+app.get('/non-study-packages', async function (req, res) {
+    try {
+        const nonStudyPackages = await getInactiveLearningPackages();
+        res.json(nonStudyPackages);
+    } catch (error) {
+        console.error('Failed to fetch non-study packages:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.get('/lesson-list/:id', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/lesson-list/:id', function (req, res) {
+app.get('/lesson/:id', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/lesson/:id', function (req, res) {
+app.get('/test-page1', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/test-page1', function (req, res) {
+app.get('/achievements-page', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/achievements-page', function (req, res) {
+app.get('/package-creation-page', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/package-creation-page', function (req, res) {
+app.get('/learning-facts-page/:id', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/learning-facts-page/:id', function (req, res) {
+app.get('/modify-learning-fact-page/:packageId/:factId', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/modify-learning-fact-page/:packageId/:factId', function (req, res) {
+app.get('/add-learning-fact-page/:packageId', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/add-learning-fact-page/:packageId', function (req, res) {
+app.get('/login', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/login', function (req, res) {
+app.get('/register', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/register', function (req, res) {
+app.get('/profile', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
-router.get('/profile', function (req, res) {
-    res.sendFile('index.html', {root: './frontend/dist'})
-})
-router.get('/about-page', function (req, res) {
+app.get('/about-page', function (req, res) {
     res.sendFile('index.html', {root: './frontend/dist'})
 })
 
-router.get('/main.js', function (req, res) {
+app.get('/main.js', function (req, res) {
     res.sendFile('main.js', {root: './frontend/dist'})
 })
-router.get('/vendor.js', function (req, res) {
+app.get('/vendor.js', function (req, res) {
     res.sendFile('vendor.js', {root: './frontend/dist'})
 })
-router.get('/polyfills.js', function (req, res) {
+app.get('/polyfills.js', function (req, res) {
     res.sendFile('polyfills.js', {root: './frontend/dist'})
 })
-router.get('/runtime.js', function (req, res) {
+app.get('/runtime.js', function (req, res) {
     res.sendFile('runtime.js', {root: './frontend/dist'})
 })
-router.get('/styles.css', function (req, res) {
+app.get('/styles.css', function (req, res) {
     res.sendFile('styles.css', {root: './frontend/dist'})
 })
 
-router.get('/learningpackages/active', async function (req, res) {
+app.get('/learningpackages/active', async function (req, res) {
     try {
         const packages = await getActiveLearningPackages();
         res.json(packages); // Make sure you send back JSON
@@ -502,56 +513,61 @@ router.get('/learningpackages/active', async function (req, res) {
 });
 
 
-router.get('/learningpackages/:id',
+app.get('/learningpackages/:id',
     async function (req, res) {
         res.json(await ulpWithQuestions(req.params['id']))
     })
-router.post('/learningpackages',
+app.post('/learningpackages',
     async function (req, res) {
         const changes = req.body
         await addNewLearningPackage(changes)
         res.sendStatus(201)
     }
 )
-router.get('/non-study-packages', async function (req, res) {
+app.get('/non-study-packages', async function (req, res) {
     res.json(await getInactiveLearningPackages())
 })
 
 
-router.patch('/learningfact/:id', async function(req, res){
+app.patch('/learningfact/:id', async function(req, res){
 	await editPackageByID(req.params['id'], req.body)
 	res.sendStatus(200)
 })
 
-router.get('/learningfact/:id', async function (req, res) {
+app.get('/learningfact/:id', async function (req, res) {
     const lf = await getLearningFact(req.params['id'])
     res.json(lf)
 })
-router.post('/learningpackages/:id', async function (req, res) {
+app.post('/learningpackages/:id', async function (req, res) {
     const {LF_ID} = await addNewLearningFact(req.body)
     await addLearningFactToLearningPackage(LF_ID, req.params['id'])
     res.sendStatus(201)
 })
-router.delete('/learningfact/:id', async function (req, res) {
+app.delete('/learningfact/:id', async function (req, res) {
     await deleteFact(req.params['id'])
 })
-router.delete('/learningpackages/:id', async function (req, res) {
+app.delete('/learningpackages/:id', async function (req, res) {
     await deletePackage(req.params['id'])
 })
-router.patch('/learningpackages/:id/add-to-study', async function (req, res) {
+app.patch('/learningpackages/:id/add-to-study', async function (req, res) {
     await addLearningPackageToStudy(req.params['id'])
 })
-router.patch('/learningpackages/:id/remove-package', async function (req, res) {
+app.patch('/learningpackages/:id/remove-package', async function (req, res) {
     await removeLearningPackageFromStudy(req.params['id'])
 })
-router.patch('/learningpackages/:id/achieve', async function (req, res) {
+app.patch('/learningpackages/:id/achieve', async function (req, res) {
     await addLearningPackageToAchievements(req.params['id'])
 })
-router.get('/achieved', async function (req, res) {
+app.get('/achieved', async function (req, res) {
     res.json(await getAchievedLearningPackages())
 })
-router.patch('/learningfact', async function (req, res) {
+app.patch('/learningfact', async function (req, res) {
     await updateFact(req.body)
 })
  
-module.exports = router; 
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+  

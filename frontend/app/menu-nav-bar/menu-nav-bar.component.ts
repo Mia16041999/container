@@ -11,6 +11,6 @@ export class MenuNavBarComponent {
 
   logout() {
     // Call the logout method from the AuthService
-    this.authService.logout();
+    fetch('http://localhost:4001/logout', { method: 'POST' });
   }
 }

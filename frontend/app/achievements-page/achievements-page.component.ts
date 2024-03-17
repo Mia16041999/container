@@ -8,6 +8,7 @@ import { LearningPackage } from '../learning-package.service';
 })
 export class AchievementsPageComponent implements OnInit {
   achievedPackages: LearningPackage[] = [];
+  private backendUrl = 'http://localhost:4000'; // Use the actual URL and port for the learning service
 
   constructor() {}
 
@@ -15,11 +16,8 @@ export class AchievementsPageComponent implements OnInit {
     this.achievedPackages = await this.getAchievedLearningPackages();
   }
 
-  async getAchievedLearningPackages(){
-    return JSON.parse(
-      await (
-          await fetch('/achieved')
-      ).text()
-    )
+  async getAchievedLearningPackages(): Promise<LearningPackage[]> {
+    const response = await fetch(`${this.backendUrl}/achieved`);
+    return await response.json();
   }
 }

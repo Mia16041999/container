@@ -1,13 +1,12 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {LearningPackage} from '../learning-package.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LearningPackage } from '../learning-package.service';
 
 @Component({
     selector: 'app-learning-session-page',
     templateUrl: './learning-session-page.component.html',
     styleUrls: ['./learning-session-page.component.css']
 })
-
 export class LearningSessionPageComponent {
     package: any;
     currentFactID: string = "";
@@ -15,26 +14,23 @@ export class LearningSessionPageComponent {
     isLastQuestion = false;
     showFinish = false;
     currentFactIndex = 0;
-    learningPackages: [] = []
+    learningPackages: [] = [];
+    private backendUrl = 'http://localhost:4000'; // Replace with the actual backend URL and port
 
     constructor(
         private route: ActivatedRoute,
         private router: Router
-    ) {
-    }
+    ) {}
 
     async getPackageById(id: string): Promise<LearningPackage | undefined> {
-        return JSON.parse(
-            await (
-                await fetch('/learningpackages/' + id)
-            ).text()
-        )
+        const response = await fetch(`${this.backendUrl}/learningpackages/${id}`);
+        return await response.json();
     }
 
     async ngOnInit() {
         const packageId = this.route.snapshot.paramMap.get('id')!;
         this.package = await this.getPackageById(packageId);
-        this.isLastQuestion = this.currentFactIndex === this.package.questions.length - 1
+        this.isLastQuestion = this.currentFactIndex === this.package.questions.length - 1;
     }
 
     toggleAnswer() {
@@ -54,7 +50,7 @@ export class LearningSessionPageComponent {
     }
 
     async updateFact(confidenceLevel: number): Promise<void> {
-        const fact = this.package.questions[this.currentFactIndex]
+        const fact = this.package.questions[this.currentFactIndex];
         if (fact) {
             fact.reviewCount += 1;
             fact.lastReviewedDate = new Date(); // Today
@@ -78,11 +74,11 @@ export class LearningSessionPageComponent {
                     fact.nextDate = nextDate
                     break;
             }
-            await fetch('/learningfact',{
-                method:'PATCH',
-                headers: {'Content-Type': 'application/json'},
-                body:JSON.stringify(fact)
-            })
+            await fetch(`${this.backendUrl}/learningfact`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(fact)
+            });
         }
     }
 

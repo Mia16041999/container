@@ -101,21 +101,23 @@ app.post('/upload', (req, res) => {
     lastReviewedDate: Date;
     nextDate: null
   }) {
+    const backendBaseUrl = 'http://localhost:4000'; // Define the base URL with the port
     const pkg = await this.getPackageById(packageId);
     if (pkg) {
-      await fetch(`/learningpackages/${packageId}`, {
+      await fetch(`${backendBaseUrl}/learningpackages/${packageId}`, {
         method: 'POST', // or 'PATCH' depending on your API design
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newFact)
-      })
+      });
     }
   }
-
+  
   async getPackageById(id: string): Promise<LearningPackage | undefined> {
-    return JSON.parse(
-      await(
-          await fetch('/learningpackages/'+id)
-      ).text()
-    )
+    const backendBaseUrl = 'http://localhost:4000'; // Define the base URL with the port
+    const response = await fetch(`${backendBaseUrl}/learningpackages/${id}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+    return await response.json();
   }
-}
+}  

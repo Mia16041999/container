@@ -14,11 +14,10 @@ export class RegisterComponent {
     });
     isNotAvailable = false
 
-    constructor(private router: Router) {
-    }
+    constructor(private router: Router) {}
 
     login() {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']);
     }
 
     async signup(event: any) {
@@ -28,7 +27,7 @@ export class RegisterComponent {
         const password = this.signupForm.value.password;
     
         try {
-            const res = await fetch('http://localhost:4000/sign-up', {
+            const res = await fetch('http://localhost:4001/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,6 +47,4 @@ export class RegisterComponent {
             console.error('An error occurred during signup:', error);
         }
     }
-    
-    
 }

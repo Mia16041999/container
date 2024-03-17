@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class PackageCreationPageComponent {
   packageForm: FormGroup;
+  private backendUrl = 'http://localhost:4000'; // Set this to your learning service URL
 
   constructor(
     private fb: FormBuilder,
@@ -22,26 +23,32 @@ export class PackageCreationPageComponent {
     });
   }
 
-  async addPackage(newPackage: {
-    expectedEndDate: null;
-    difficultyLevel: any;
-    description: any;
-    title: any;
-    category: any;
-    isAchieved: boolean;
-    startDate: null
-  }): Promise<void> {
+  async addPackage(newPackage: any): Promise<void> {
     try {
-      let response = await fetch('/learningpackages', {
+      let response = await fetch(`${this.backendUrl}/learningpackages`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newPackage)
       });
-      let data: any = await response.json();
-      return console.log('Package added:', data);
+    
+      if (response.ok) {
+        // Assuming the server might not always return JSON
+        const contentType = response.headers.get('Content-Type');
+        if (contentType && contentType.includes('application/json')) {
+          let data = await response.json();
+          console.log('Package added:', data);
+          this.router.navigate(['/non-study-packages']); // Navigate after package is added
+        } else {
+          console.log('Package created, no JSON returned');
+          this.router.navigate(['/non-study-packages']);
+        }
+      } else {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
     } catch (error) {
-      return console.error('Error adding package:', error);
+      console.error('Error adding package:', error);
     }
+    
   }
 
   onSubmit() {
@@ -56,8 +63,6 @@ export class PackageCreationPageComponent {
         isAchieved: false
       };
       this.addPackage(newPackage);
-    //await this.addPackage(newPackage);
-      this.router.navigate(['/non-study-packages']);
     }
   }
 }
